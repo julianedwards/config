@@ -20,7 +20,7 @@ echo $SEPARATOR
 
 # install vim-plug
 #       install plugins via vim -- :PlugInstall
-#       install vim-go binaries: :GoInstallBinaries
+#       install vim-go binaries -- :GoInstallBinaries
 VIMPLUG=~/.vim/autoload/plug.vim
 if [[ -f "$VIMPLUG" ]]; then
     echo "vim-plug installed"
