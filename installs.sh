@@ -45,3 +45,17 @@ else
     echo "MongoDB installed"
     mongod --version
 fi
+
+echo $SEPARATOR
+
+# install evergreen
+#       don't forget to create ~/.evergreen.yml
+if [[ $(command -v evergreen) == "" ]]; then
+    echo "Installing evergreen..."
+    curl -LO https://evergreen.mongodb.com/clients/darwin_amd64/evergreen
+    mv evergreen /usr/local/bin
+    chmod +x /usr/local/bin/evergreen
+else
+    echo "Updating evergreen..."
+    evergreen get-update
+fi
