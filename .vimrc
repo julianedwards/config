@@ -139,3 +139,20 @@ highlight colorcolumn ctermbg=7
 " Set color scheme"
 colorscheme desert
 
+" Run goimports on save"
+let g:go_fmt_command = "goimports"
+
+" cmd remap"
+nnoremap <silent> <c-f> :FZF<cr>
+nnoremap <silent> <c-a> :Ag<cr>
+nnoremap <silent> <c-g> :Rg<cr>
+nnoremap <silent> <c-h> :History<cr>
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'fatih/vim-go'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
