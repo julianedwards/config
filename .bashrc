@@ -117,3 +117,8 @@ ulimit -u 256
 
 #python alias
 alias python='python3.4'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Vim bindings
+set -o vim

@@ -4,9 +4,6 @@ export PATH=\
 .:\
 $PATH
 
-set -o vim
-
-
 # added by Anaconda 2.1.0 installer
 export PATH="/Users/julianedwards/anaconda/bin:$PATH"
 
