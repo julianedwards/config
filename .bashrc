@@ -4,6 +4,9 @@
 
 umask 0077
 
+# Vim bindings
+set -o vi
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -119,6 +122,3 @@ ulimit -u 256
 alias python='python3.4'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# Vim bindings
-set -o vim
