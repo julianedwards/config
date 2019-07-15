@@ -9,9 +9,9 @@ export PATH="/Users/julianedwards/anaconda/bin:$PATH"
 
 # Setting PATH for Python 3.4
 # The orginal version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
+#PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
 export PATH
-alias python='python3'
+alias python='python2.7'
 
 # Setting PATH for Go
 export GOPATH=$HOME/gocode
@@ -20,3 +20,5 @@ export GOSC=$GOPATH/src/github.com/julianedwards
 
 # Setting PGDATA for PSQL
 export PGDATA=/usr/local/var/postgres
+
+export SCONSFLAGS="-j32 -Q --cache=nolinked --link-model=dynamic --implicit-cache"
