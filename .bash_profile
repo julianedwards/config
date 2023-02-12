@@ -1,24 +1,30 @@
 export PS1='\$ '
 
-export PATH=\
-.:\
-$PATH
+# Homebrew
+PATH=/opt/homebrew/bin:$PATH
 
-# added by Anaconda 2.1.0 installer
-export PATH="/Users/julianedwards/anaconda/bin:$PATH"
-
-# Setting PATH for Python 3.4
-# The orginal version is saved in .bash_profile.pysave
-#PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
-export PATH
-alias python='python2.7'
-
-# Setting PATH for Go
+# Golang
 export GOPATH=$HOME/gocode
-export PATH=$PATH:$GOPATH/bin
 export GOSC=$GOPATH/src/github.com/julianedwards
+export GOFLAGS=-ldflags="-w"
+export GOMODCACHE="$(go env GOMODCACHE)"
+PATH=$GOPATH/bin:$PATH
 
 # Setting PGDATA for PSQL
 export PGDATA=/usr/local/var/postgres
 
-export SCONSFLAGS="-j32 -Q --cache=nolinked --link-model=dynamic --implicit-cache"
+# SCONS
+export SCONSFLAGS="-j4 -Q --cache=nolinked --implicit-cache"
+
+# Protobuf
+PATH="/usr/local/opt/protobuf@3.6/bin:$PATH"
+
+export PATH=\
+.:\
+$PATH
+
+if [ -f ~/.bashrc ];
+then 
+    .  ~/.bashrc; 
+fi 
+. "$HOME/.cargo/env"

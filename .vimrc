@@ -136,17 +136,24 @@ set colorcolumn=80
 " Set color column to a specific color
 highlight colorcolumn ctermbg=7
 
-" Set color scheme"
+" Set color scheme
 colorscheme desert
 
-" Run goimports on save"
+" Set leader key
+let mapleader = ","
+
+" Run goimports on save
 let g:go_fmt_command = "goimports"
 
-" cmd remap"
+" Run rustfmt on save
+let g:rustfmt_autosave = 1
+
+" cmd remap
 nnoremap <silent> <c-f> :FZF<cr>
 nnoremap <silent> <c-a> :Ag<cr>
 nnoremap <silent> <c-g> :Rg<cr>
 nnoremap <silent> <c-h> :History<cr>
+nnoremap <silent> <c-d> :GoDef<cr>
 
 call plug#begin('~/.vim/plugged')
 
@@ -154,5 +161,11 @@ Plug 'fatih/vim-go'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+Plug 'xolox/vim-misc'
+
+Plug 'davidhalter/jedi-vim'
+
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
