@@ -142,9 +142,6 @@ colorscheme desert
 " Set leader key
 let mapleader = ","
 
-" Run goimports on save
-let g:go_fmt_command = "goimports"
-
 " Run rustfmt on save
 let g:rustfmt_autosave = 1
 
@@ -154,12 +151,16 @@ nnoremap <silent> <c-a> :Ag<cr>
 nnoremap <silent> <c-g> :Rg<cr>
 nnoremap <silent> <c-h> :History<cr>
 nnoremap <silent> <c-d> :GoDef<cr>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'fatih/vim-go'
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'xolox/vim-misc'
@@ -168,4 +169,56 @@ Plug 'davidhalter/jedi-vim'
 
 Plug 'rust-lang/rust.vim'
 
+Plug 'github/copilot.vim'
+
+Plug 'numine777/py-bazel.nvim'
+
+Plug 'alexander-born/bazel.nvim'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end()
+
+function! MaybeSetGoPackagesDriver()
+  " Start at the current directory and see if there's a WORKSPACE file in the
+  " current directory or any parent. If we find one, check if there's a
+  " gopackagesdriver.sh in a tools/ directory, and point our
+  " GOPACKAGESDRIVER env var at it.
+  let l:dir = getcwd()
+  while l:dir != "/"
+    if filereadable(simplify(join([l:dir, 'MODULE.bazel'], '/')))
+      let l:maybe_driver_path = simplify(join([l:dir, 'tools/gopackagesdriver.sh'], '/'))
+      if filereadable(l:maybe_driver_path)
+        let $GOPACKAGESDRIVER = l:maybe_driver_path
+        break
+      end
+    end
+    let l:dir = fnamemodify(l:dir, ':h')
+  endwhile
+endfunction
+
+call MaybeSetGoPackagesDriver()
+
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
+let g:go_import_mode = 'gopls'
+" See https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+let g:go_gopls_settings = {
+  \ 'build.directoryFilters': [
+    \ '-bazel-bin',
+    \ '-bazel-out',
+    \ '-bazel-testlogs',
+    \ '-bazel-mycorr',
+  \ ],
+  \ 'ui.completion.usePlaceholders': v:true,
+  \ 'ui.semanticTokens': v:true,
+  \ 'ui.codelenses': {
+    \ 'gc_details': v:false,
+    \ 'regenerate_cgo': v:false,
+    \ 'generate': v:false,
+    \ 'test': v:false,
+    \ 'tidy': v:false,
+    \ 'upgrade_dependency': v:false,
+    \ 'vendor': v:false,
+  \ },
+\ }
